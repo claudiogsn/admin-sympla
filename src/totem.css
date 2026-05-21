@@ -1,0 +1,123 @@
+.totem-root {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: #fff;
+  overflow: hidden;
+}
+
+.totem-topo {
+  flex-shrink: 0;
+  text-align: center;
+  padding: 4vh 4vw 3vh;
+  color: #fff;
+}
+.totem-evento {
+  font-size: 1.6vh;
+  opacity: 0.7;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.totem-titulo { font-size: 3.6vh; font-weight: 700; margin-top: 1.2vh; }
+.totem-logo { max-height: 7vh; max-width: 60%; object-fit: contain; margin-bottom: 1.5vh; }
+
+.totem-corpo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 3vh 4vw 0;
+}
+
+.totem-campo {
+  background: #f4f5f7;
+  border: 0.4vh solid #e2e5ea;
+  border-radius: 1.4vh;
+  padding: 2.4vh 2.6vw;
+  font-size: 3vh;
+  min-height: 9vh;
+  display: flex;
+  align-items: center;
+}
+
+.totem-resultados {
+  flex: 1;
+  overflow-y: auto;
+  margin-top: 2vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4vh;
+}
+
+.totem-res-item {
+  display: flex;
+  align-items: center;
+  gap: 2.4vw;
+  padding: 2.4vh 2.6vw;
+  border-radius: 1.6vh;
+  border: 0.3vh solid #e2e5ea;
+  background: #fff;
+  cursor: pointer;
+}
+.totem-res-item:active { background: #f4f5f7; }
+
+.totem-avatar {
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+}
+
+.totem-teclado { flex-shrink: 0; padding: 2vh 3vw 3vh; background: #eef0f3; }
+
+.tv-wrap { display: grid; gap: 1.2vh; }
+.tv-linha { display: grid; gap: 1.2vw; }
+.tv-key {
+  height: 8vh;
+  background: #fff;
+  border: 0.3vh solid #d8dbe2;
+  border-radius: 1.2vh;
+  font-size: 3vh;
+  cursor: pointer;
+  font-family: inherit;
+}
+.tv-key:active { background: #eef0f3; }
+.tv-key-fn { font-size: 2.2vh; }
+
+.totem-centro {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4vh 6vw;
+}
+
+.totem-btn {
+  border: none;
+  border-radius: 1.6vh;
+  font-size: 3vh;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+}
+.totem-btn-sec {
+  background: #fff;
+  border: 0.3vh solid #d8dbe2;
+  font-weight: 400;
+}
+
+.totem-circulo {
+  width: 16vh;
+  height: 16vh;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
