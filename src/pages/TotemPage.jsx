@@ -89,11 +89,7 @@ export default function TotemPage() {
 
   function escolher(p) {
     setPessoa(p);
-    if (p.checkin_status === 'CHECKED_IN') {
-      setTela('jausado');
-    } else {
-      setTela('confirma');
-    }
+    setTela('confirma');
   }
 
   async function confirmar() {
@@ -213,51 +209,142 @@ export default function TotemPage() {
 
       {tela === 'confirma' && (
         <div className="totem-centro" style={{ background: '#fff' }}>
-          <p style={{ fontSize: '2.4vh', color: '#6b7280' }}>É você?</p>
-          <div
-            className="totem-avatar"
-            style={{
-              width: '14vh',
-              height: '14vh',
-              fontSize: '4.5vh',
-              background: cfg.cor_primaria,
-              margin: '3vh 0',
-            }}
-          >
-            {iniciais(pessoa.nome)}
-          </div>
-          <div style={{ fontSize: '4vh', fontWeight: 700 }}>{pessoa.nome}</div>
+          <p style={{ fontSize: '2.4vh', color: '#64748b', fontWeight: 500, marginBottom: '2vh' }}>
+            Confirmação de Dados
+          </p>
+          
           <div
             style={{
-              fontSize: '2.6vh',
-              color: cfg.cor_secundaria,
-              fontWeight: 600,
-              marginTop: '1vh',
+              background: '#f8fafc',
+              border: '0.3vh solid #e2e8f0',
+              borderRadius: '3vh',
+              padding: '4vh 5vw',
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              boxShadow: '0 1vh 3vh rgba(0,0,0,0.04)',
             }}
           >
-            Ingresso {pessoa.ticket_number}
+            {/* Avatar */}
+            <div
+              className="totem-avatar"
+              style={{
+                width: '13vh',
+                height: '13vh',
+                fontSize: '4.5vh',
+                background: cfg.cor_primaria,
+                marginBottom: '2.5vh',
+                boxShadow: '0 0.8vh 2vh rgba(0,0,0,0.1)',
+              }}
+            >
+              {iniciais(pessoa.nome)}
+            </div>
+
+            {/* Nome */}
+            <div style={{ fontSize: '3.8vh', fontWeight: 700, color: '#0f172a', textAlign: 'center', lineHeight: 1.2 }}>
+              {pessoa.nome}
+            </div>
+
+            {/* Email */}
+            {pessoa.email && (
+              <div style={{ fontSize: '2.2vh', color: '#64748b', marginTop: '1vh', textAlign: 'center', wordBreak: 'break-all' }}>
+                {pessoa.email}
+              </div>
+            )}
+
+            {/* Badge de Status de Check-in */}
+            {pessoa.checkin_status === 'CHECKED_IN' && (
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '1vw',
+                  background: '#d1fae5',
+                  color: '#065f46',
+                  border: '0.2vh solid #a7f3d0',
+                  borderRadius: '9999px',
+                  padding: '0.8vh 2.5vw',
+                  fontSize: '2vh',
+                  fontWeight: 600,
+                  marginTop: '2vh',
+                }}
+              >
+                <span style={{ fontSize: '2.2vh', color: '#10b981' }}>✓</span> Check-in já realizado
+              </div>
+            )}
+
+            {/* Divisor */}
+            <div style={{ width: '100%', height: '0.2vh', background: '#e2e8f0', margin: '3vh 0' }} />
+
+            {/* Grid de Detalhes */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4vw', width: '100%', textAlign: 'left' }}>
+              <div>
+                <div style={{ fontSize: '1.8vh', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>
+                  Tipo de Ingresso
+                </div>
+                <div style={{ fontSize: '2.4vh', fontWeight: 700, color: '#334155', marginTop: '0.5vh' }}>
+                  {pessoa.ticket_name || 'Ingresso Geral'}
+                </div>
+              </div>
+              
+              <div>
+                <div style={{ fontSize: '1.8vh', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>
+                  Código do Ingresso
+                </div>
+                <div style={{ fontSize: '2.4vh', fontWeight: 700, color: '#334155', marginTop: '0.5vh', fontFamily: 'monospace', letterSpacing: '0.05em' }}>
+                  {pessoa.ticket_number}
+                </div>
+              </div>
+            </div>
           </div>
-          <div style={{ display: 'flex', gap: '3vw', marginTop: '6vh', width: '100%' }}>
+
+          {/* Botões */}
+          <div style={{ display: 'flex', gap: '3vw', marginTop: '5vh', width: '100%' }}>
             <button
               className="totem-btn totem-btn-sec"
               onClick={voltarInicio}
               style={{ flex: 1, height: '9vh' }}
             >
-              Não sou eu
+              {pessoa.checkin_status === 'CHECKED_IN' ? 'Voltar' : 'Não sou eu'}
             </button>
-            <button
-              className="totem-btn"
-              onClick={confirmar}
-              style={{
-                flex: 1.4,
-                height: '9vh',
-                background: cfg.cor_secundaria,
-                color: '#fff',
-              }}
-            >
-              Confirmar check-in
-            </button>
+
+            {pessoa.checkin_status === 'CHECKED_IN' ? (
+              <button
+                className="totem-btn"
+                onClick={() => setImprimirJaUsado(true)}
+                style={{
+                  flex: 1.4,
+                  height: '9vh',
+                  background: cfg.cor_secundaria,
+                  color: '#fff',
+                }}
+              >
+                Imprimir etiqueta
+              </button>
+            ) : (
+              <button
+                className="totem-btn"
+                onClick={confirmar}
+                style={{
+                  flex: 1.4,
+                  height: '9vh',
+                  background: cfg.cor_secundaria,
+                  color: '#fff',
+                }}
+              >
+                Confirmar check-in
+              </button>
+            )}
           </div>
+
+          {imprimirJaUsado && (
+            <EtiquetaImprimivel
+              pessoa={pessoa}
+              cfg={cfg}
+              onDepoisImprimir={() => setImprimirJaUsado(false)}
+            />
+          )}
         </div>
       )}
 
